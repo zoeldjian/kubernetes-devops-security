@@ -13,7 +13,7 @@ pipeline {
     stage('SonarQube - SAST') {
       steps {
         withSonarQubeEnv('SonarQube') {
-        sh "mvn sonar:sonar -Dsonar.projectKey=numeric-application -Dsonar.host.url=http://18.141.173.8:9000/ -Dsonar.login=fbdacdf7e2ac3c7f4731eae6c4116fb5cc58be56"
+        sh "sonar-scanner Dsonar.projectKey=sirka-new-landing-page Dsonar.sources=. Dsonar.host.url=http://172.16.2.0:9000 Dsonar.login=dc9703ca7a29795ce14d3bb48971d33e982a6192"
       }
        timeout(time: 2, unit: 'MINUTES') {
          script {
@@ -22,6 +22,19 @@ pipeline {
       }  
     }
   }
+
+    stage('Vulnerability Scan - Docker') {
+      steps {
+        parallel(
+          "Dependency Scan": {
+            sh "mvn dependency-check:check"
+          },
+          "Trivy Scan": {
+            sh "bash trivy-docker-image-scan.sh"
+          }
+        )
+      }
+    }
 
     stage('Docker Build and Push') {
       steps {
