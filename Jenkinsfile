@@ -34,15 +34,12 @@ pipeline {
 
     stage('Vulnerability Scan - Docker') {
       steps {
-       parallel(
-<<<<<<< HEAD
-       "Docker Scan:"{
-=======
->>>>>>> c86b4fb0adb99cca83af2a67e09b3d53f05f3246
-            sh "bash trivy-docker-image-scan.sh"
+       parallel (
+       "Docker Scan": {
+            sh 'bash trivy-docker-image-scan.sh'
       },
     "Kubesec Scan": {
-            sh "bash kubesec-scan.sh"
+            sh 'bash kubesec-scan.sh'
           }
       (
 <<<<<<< HEAD
