@@ -38,17 +38,14 @@ pipeline {
        "Docker Scan": {
             sh "bash trivy-docker-image-scan.sh"
       },
-    "Kubesec Scan": {
+       "Kubesec Scan": {
             sh "bash kubesec-scan.sh"
           }
       )
-<<<<<<< HEAD
     }
   }
  
-=======
-   } 
->>>>>>> c86b4fb0adb99cca83af2a67e09b3d53f05f3246
+} 
 
     stage('Docker Build and Push') {
       steps {
