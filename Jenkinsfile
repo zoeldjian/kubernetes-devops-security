@@ -34,9 +34,17 @@ pipeline {
 
     stage('Vulnerability Scan - Docker') {
       steps {
+       parallel(
+       "Docker Scan:"{
             sh "bash trivy-docker-image-scan.sh"
-      }
-   } 
+      },
+    "Kubesec Scan": {
+            sh "bash kubesec-scan.sh"
+          }
+      (
+    }
+  }
+ 
 
     stage('Docker Build and Push') {
       steps {
