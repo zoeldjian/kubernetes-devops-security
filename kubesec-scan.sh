@@ -17,7 +17,7 @@
     # Kubesec scan result processing
     # echo "Scan Score : $scan_score"
 
-	if [[ "${scan_score}" -ge 4 ]]; then
+	if [[ "${scan_score}" -ge 3 ]]; then
 	    echo "Score is $scan_score"
 	    echo "Kubesec Scan $scan_message"
 	else
