@@ -36,7 +36,11 @@ pipeline {
             steps {
                 script {
                     docker.image('checkmarx/kics:latest').inside("--entrypoint=''") {
+<<<<<<< HEAD
                       unstash 'https://github.com/zoeldjian/kubernetes-devops-security'
+=======
+                      unstash 'source'
+>>>>>>> 0d0ab4956dfb0e59064cbce7062171de5676515a
                       sh('/app/bin/kics scan -p \'\$(pwd)\' -q /app/bin/assets/queries --ci --report-formats html -o \'\$(pwd)\' --ignore-on-exit results')
                       archiveArtifacts(artifacts: 'results.html', fingerprint: true)
                       publishHTML([allowMissing: true, alwaysLinkToLastBuild: true, keepAll: true, reportDir: '.', reportFiles: 'results.html', reportName: 'KICS Results', reportTitles: ''])
